@@ -26,7 +26,7 @@ useEffect(() =>{
       <div className='flex-col flex gap-3 items-start justify-start'><p>This is data which will be fetched after loading</p>
        <input type="text " placeholder='Write something' />
      <button 
-     className='p-4 border border-black'
+     className='p-2 border border-black'
      onClick={() => setrefetchapi(true)}>Post Data</button></div>}</div>
 
  
