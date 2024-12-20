@@ -1,12 +1,17 @@
 'use client'
 import React, { useEffect, useState } from 'react'
+import Image from 'next/image';
 
 interface Todo {
-  userId: number;
+
   id: number;
   title: string;
-  completed: boolean;
+  price : number;
+  description: string;
+  image : string;
+
 }
+ 
 
 const page =  () => {
 
@@ -17,7 +22,7 @@ const page =  () => {
 useEffect( () =>{
 const fetchdata= async () => {
   
-  const response = await fetch("https://jsonplaceholder.typicode.com/todos/");
+  const response = await fetch("https://fakestoreapi.com/products");
 
   const parsedResponse: Todo[] = await response.json();
 
@@ -34,25 +39,30 @@ fetchdata();
 
 }, []);
 
-  return (
-    <div className='mx-20'>
-      <h1 className="font-bold text-4xl text-center mt-6 ">Todo</h1>
-      <div className=' grid grid-cols-4 gap-3 mt-20'>
+return (
+  <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-8">
+    <h1 className="font-bold text-4xl text-center mb-8">Products</h1>
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
       {data.map((todo, index) => (
-        <div key={index} className="flex flex-col gap-5 border border-black  rounded p-2">
-          <p>userId: {todo.userId}</p>
-          <p>id: {todo.id}</p>
-          <p>title: {todo.title}</p>
-          <p>completed: {`${todo.completed}`}</p>
+        <div key={index} className="flex flex-col items-center border border-gray-300 rounded-lg p-4">
+          <div className="relative w-full h-48 mb-4">
+            <Image
+              src={todo.image}
+              alt={todo.title}
+              layout="fill"
+              objectFit="contain"
+              className="rounded-lg"
+            />
+          </div>
+          <h2 className="text-lg font-semibold mb-2">{todo.title}</h2>
+          <p className="text-gray-700 mb-2">${todo.price}</p>
+          <p className="text-gray-500 text-sm">{todo.description}</p>
         </div>
-
       ))}
-        </div>
-        </div>     
-
-  )
-}
-
+    </div>
+  </div>
+);
+};
 export default page
 
 
